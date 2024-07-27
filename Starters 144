@@ -1,0 +1,140 @@
+Problem A - Capital Gain Tax
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int x,y;
+	cin>>x>>y;
+	if(x<y){
+	    cout<<"INCREASED"<<endl;
+	    
+	} else if(x==y){
+	    cout<<"SAME"<<endl;
+	} else{
+	    cout<<"DECREASED"<<endl;
+	}
+
+}
+
+// Problem B - Saving Account
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+    cin >> t;
+    while (t--) {
+        int x, y, z;
+        cin >> x >> y >> z;
+        int total = x * y;
+        if (total <= z) {
+            cout << 0 << endl;
+        } else {
+            int accumulated = 0;
+            for (int i = 1; i <= x; i++) {
+                accumulated += y;
+                if (accumulated > z) {
+                    cout << x - i + 1 << endl;
+                    break;
+                }
+            }
+        }
+    }
+    return 0;
+
+}
+Problem C- Budget Allotment
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        long long n, x; // Use long long for n and x as they can be large
+        cin >> n >> x;
+        vector<long long> arr(n); // Vector elements should be long long
+        for (long long i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+
+        long long count = 0;
+        long long excess = 0; // Tracks the total excess budget available
+
+        sort(arr.begin(), arr.end());
+        for (long long i = n - 1; i >= 0; i--) {
+            if (arr[i] >= x) {
+                count++;
+                if (arr[i] > x) {
+                    excess += arr[i] - x; // Accumulate excess budget
+                }
+            } else {
+                long long deficit = x - arr[i];
+                if (excess >= deficit) {
+                    excess -= deficit;
+                    count++;
+                } else {
+                    break;
+                }
+            }
+        }
+        cout << count << endl;
+    }
+    return 0;
+}
+
+
+Problem D- Largest K
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        long long n;
+        cin >> n;
+
+        vector<long long> arr(n);
+        map<int, int> mp;
+
+      
+        long long i = 0;
+        while (i < n) {
+            cin >> arr[i];
+            mp[arr[i]]++;
+            i++;
+        }
+
+       
+        vector<long long> fr;
+        auto it = mp.begin();
+        while (it != mp.end()) {
+            fr.push_back(it->second);
+            it++;
+        }
+
+       
+        sort(fr.begin(), fr.end(), greater<long long>());
+
+        
+        long long maxK = 0;
+        long long sum = 0;
+        i = 1;  
+        while (i <= fr.size()) {
+            sum += fr[i - 1];
+            long long value = (sum / i) * i;
+            maxK = max(maxK, value);
+            i++;
+        }
+
+        cout << maxK << endl;
+    }
+
+    return 0;
+}
+
